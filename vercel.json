@@ -8,8 +8,12 @@
     ],
     "routes": [
         {
+            "src": "/hoi",
+            "dest": "/src/Doc/Swagger/master.swagger.ts"
+        },
+        {
             "src": "/(.*)",
-            "dest": "Server.ts"
+            "dest": "/Server.ts"
         }
     ]
 }
