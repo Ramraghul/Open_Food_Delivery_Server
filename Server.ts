@@ -8,11 +8,12 @@ import cors from 'cors';
 import compression from 'compression';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
 const app = express();
-const Token  = 'Testing Token'
+const Token = 'Testing Token'
 
 // Advanced Configuration
 const advancedConfig = {
@@ -88,8 +89,8 @@ app.get("/test", (req: Request, res: Response) => {
     res.status(200).json({
         status: true,
         message: "Welcome to Raghul's Free Online Food Delivery Server",
-        data:{
-            bearer_token:`${Token}`
+        data: {
+            bearer_token: `${Token}`
         }
     });
 });
@@ -97,8 +98,15 @@ app.get("/test", (req: Request, res: Response) => {
 // Mount the router
 app.use('/api/v1', Route);
 
+app.use('/swagger-ui-assets', express.static(path.join(__dirname, 'node_modules/swagger-ui-dist')));
+
 // Swagger Doc
-app.use('/', swaggerUi.serve, swaggerUi.setup(masterSwagger, { explorer: true }));
+app.use(
+    '/',
+    swaggerUi.serveFiles(masterSwagger),
+    swaggerUi.setup(masterSwagger, { explorer: true, swaggerOptions: { url: '/swagger-ui-assets/swagger.json' } })
+);
+
 
 // Start the server
 app.listen(advancedConfig.port, () => {
