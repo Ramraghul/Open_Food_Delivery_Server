@@ -4,7 +4,8 @@ import palindromeSwagger from './Auth_Swagger/palindrome.swagger';
 import romanNumeralSwagger from './Auth_Swagger/romanNumeral.swagger';
 import swaggerJsdoc from 'swagger-jsdoc';
 
-const UIOptions = {
+// Swagger Definition
+const swaggerDefinition = {
     openapi: '3.1.0',
     info: {
         title: 'Food Order and Delivery Open Server',
@@ -99,5 +100,15 @@ const UIOptions = {
     ]
 };
 
-export const masterSwagger = swaggerJsdoc(UIOptions);
+// Swagger Options
+const options = {
+    swaggerDefinition,
+    apis: [
+        '../../Routes/master.route'
+    ],
+};
+
+// Generate the Swagger Documentation using swagger-jsdoc
+export const masterSwagger = swaggerJsdoc(options);
+
 export default masterSwagger;
