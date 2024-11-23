@@ -32,7 +32,7 @@ const swaggerDefinition = {
             description: 'Development Server',
         },
         {
-            url: process.env.LIVE_URL,
+            url: 'https://open-food-delivery-server.vercel.app/',
             description: 'Production Server',
         },
     ],
