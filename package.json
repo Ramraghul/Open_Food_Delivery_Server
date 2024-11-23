@@ -10,7 +10,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "npm run local",
+    "start": "ts-node ./src/Server.ts",
     "local": "nodemon ./src/Server.ts",
     "build": "tsc",
     "test": "jest",
@@ -59,8 +59,7 @@
     "TypeScript"
   ],
   "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
+    "node": "14.x"
   },
   "include": [
     "src/*.ts"
