@@ -59,7 +59,7 @@
     "TypeScript"
   ],
   "engines": {
-    "node": "21.x"
+    "node": "22.x"
   },
   "include": [
     "src/*.ts"
