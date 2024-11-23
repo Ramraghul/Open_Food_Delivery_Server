@@ -2,8 +2,9 @@ require('dotenv').config();
 const BaseUrlVersion = "api/v1";
 import palindromeSwagger from './Auth_Swagger/palindrome.swagger';
 import romanNumeralSwagger from './Auth_Swagger/romanNumeral.swagger';
+import swaggerJsdoc from 'swagger-jsdoc';
 
-const masterSwagger = {
+const UIOptions = {
     openapi: '3.1.0',
     info: {
         title: 'Food Order and Delivery Open Server',
@@ -98,4 +99,5 @@ const masterSwagger = {
     ]
 };
 
+export const masterSwagger = swaggerJsdoc(UIOptions);
 export default masterSwagger;
