@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'morgan';
 import chalk from 'chalk';
-import Route from './Routes/master.route';
+import Route from './src/Routes/master.route';
 import swaggerUi from 'swagger-ui-express';
-import masterSwagger from './Doc/Swagger/master.swagger';
+import masterSwagger from './src/Doc/Swagger/master.swagger';
 import cors from 'cors';
 import compression from 'compression';
 import helmet from 'helmet';
