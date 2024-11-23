@@ -1,15 +1,9 @@
 {
     "version": 2,
-    "builds": [
+    "rewrites": [
         {
-            "src": "/",
-            "dest": "/"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/",
-            "dest": "/"
+            "source": "/(.*)",
+            "destination": "/src/Server.ts"
         }
     ]
 }

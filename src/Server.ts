@@ -21,7 +21,7 @@ const advancedConfig = {
     enableHelmet: true,
     enableLogDetection: true,
     environment: process.env.NODE_ENV || 'development',
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 9000
 };
 
 // Apply environment-specific configuration
