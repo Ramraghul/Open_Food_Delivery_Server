@@ -98,7 +98,7 @@ app.get("/test", (req: Request, res: Response) => {
 app.use('/api/v1', Route);
 
 // Swagger Doc
-app.use('/test', swaggerUi.serve, swaggerUi.setup(masterSwagger));
+app.use('/hoi', swaggerUi.serve, swaggerUi.setup(masterSwagger));
 
 // Start the server
 app.listen(advancedConfig.port, () => {
