@@ -10,7 +10,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "ts-node Server.ts",
+    "start": "nodemon Server.ts",
     "local": "nodemon Server.ts",
     "build": "tsc",
     "test": "jest",
@@ -47,7 +47,7 @@
     "request-ip": "^3.3.0",
     "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0",
+    "swagger-ui-express": "4.6.2",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
