@@ -15,7 +15,7 @@ const swaggerDefinition = {
             It provides APIs to manage the end-to-end process of food ordering, including browsing menus, 
             placing orders, tracking deliveries, and managing user profiles. This API is designed 
             for developers to build robust food delivery platforms with customizable features.`,
-        termsOfService: 'https://github.com/Ramraghul/JS_DSA_Server',
+        termsOfService: 'https://github.com/Ramraghul/Open_Food_Delivery_Server',
         contact: {
             name: 'Raghul',
             url: 'https://raghul-test.netlify.app',
