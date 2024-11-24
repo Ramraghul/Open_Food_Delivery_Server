@@ -99,7 +99,7 @@ app.get("/test", (req: Request, res: Response) => {
 app.use('/api/v1', Route);
 
 //Swagger Css Direct Access
-app.use('/swagger-ui-assets', express.static(path.join(__dirname, 'node_modules/swagger-ui-dist')));
+app.use('/swagger-ui-assets', express.static(path.join(__dirname, '../node_modules/swagger-ui-dist')));
 
 // Swagger Doc
 app.use(
