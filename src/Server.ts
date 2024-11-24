@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import Route from './Routes/master.route';
 import swaggerUi from 'swagger-ui-express';
 import masterSwagger from './Doc/Swagger/master.swagger';
+import MongoDBConnection from './database/connection';
 import cors from 'cors';
 import compression from 'compression';
 import helmet from 'helmet';
@@ -13,7 +14,7 @@ import path from 'path';
 dotenv.config();
 
 const app = express();
-const Token = 'Testing Token'
+const Token = 'Testing Token';
 
 // Advanced Configuration
 const advancedConfig = {
@@ -22,7 +23,7 @@ const advancedConfig = {
     enableHelmet: true,
     enableLogDetection: true,
     environment: process.env.NODE_ENV || 'development',
-    port: process.env.PORT || 9000
+    port: parseInt(process.env.PORT || '9000'),
 };
 
 // Apply environment-specific configuration
@@ -32,7 +33,6 @@ if (advancedConfig.environment === 'production') {
 
 // Apply advanced configuration
 if (advancedConfig.enableCors) {
-    // Use a more specific CORS configuration
     const corsOptions = {
         origin: '*',
         methods: 'GET,HEAD,PUT,PATCH,POST',
@@ -74,45 +74,72 @@ app.use(logger((tokens, req, res) => {
     return [method, url, statusColor, responseTime, '-', contentLength].join(' ');
 }));
 
-// Error Handling Middleware
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Internal Server Error' });
-});
-
 // Body Parser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Check Backend Working Or Not and Welcome Message And Bearer Token For API
-app.get("/test", (req: Request, res: Response) => {
+app.get('/test', (req: Request, res: Response) => {
     res.status(200).json({
         status: true,
         message: "Welcome to Raghul's Free Online Food Delivery Server",
         data: {
-            bearer_token: `${Token}`
-        }
+            bearer_token: `${Token}`,
+        },
     });
 });
 
 // Mount the router
 app.use('/api/v1', Route);
 
-//Swagger Css Direct Access
-app.use('/swagger-ui-assets', express.static(path.join(__dirname, '../node_modules/swagger-ui-dist')));
+// Swagger CSS Direct Access
+app.use(
+    '/swagger-ui-assets',
+    express.static(path.join(__dirname, '../node_modules/swagger-ui-dist'))
+);
 
 // Swagger Doc
 app.use(
     '/',
     swaggerUi.serveFiles(masterSwagger),
-    swaggerUi.setup(masterSwagger, { explorer: true, swaggerOptions: { url: '/swagger-ui-assets/swagger.json' } })
+    swaggerUi.setup(masterSwagger, {
+        explorer: true,
+        swaggerOptions: { url: '/swagger-ui-assets/swagger.json' },
+    })
 );
 
+// MongoDB Connection and Start Server
+(async () => {
+    try {
+        // Initialize MongoDB connection
+        const mongoDB = MongoDBConnection.getInstance();
+        await mongoDB.connect();
 
-// Start the server
-app.listen(advancedConfig.port, () => {
-    console.log(`Server is running on ${chalk.blueBright(`http://localhost:${advancedConfig.port}`)}`);
-    console.log(`Swagger Doc running on ${chalk.yellowBright(`http://localhost:${advancedConfig.port}`)}`);
-    console.log(`Your API Token Is ${chalk.magentaBright(Token)}`);
-    console.log(`Press ${chalk.redBright('Ctrl + C')} to Stop this Server`);
+        // Default route after MongoDB connection
+        app.get('/server_test', (req: Request, res: Response) => {
+            res.send('Server is up and MongoDB is connected!');
+        });
+
+        // Start the server
+        app.listen(advancedConfig.port, () => {
+            console.log(
+                `Server is running on ${chalk.blueBright(`http://localhost:${advancedConfig.port}`)}`
+            );
+            console.log(
+                `Swagger Docs running on ${chalk.yellowBright(
+                    `http://localhost:${advancedConfig.port}`
+                )}`
+            );
+            console.log(`Your API Token Is ${chalk.magentaBright(Token)}`);
+            console.log(`Press ${chalk.redBright('Ctrl + C')} to stop the server`);
+        });
+    } catch (error) {
+        console.error('Failed to start the application:', error);
+    }
+})();
+
+// Error Handling Middleware (Place after all routes)
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Internal Server Error' });
 });

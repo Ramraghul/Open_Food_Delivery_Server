@@ -1,8 +1,10 @@
 require('dotenv').config();
 const BaseUrlVersion = "api/v1";
+import swaggerJsdoc from 'swagger-jsdoc';
 import palindromeSwagger from './Auth_Swagger/palindrome.swagger';
 import romanNumeralSwagger from './Auth_Swagger/romanNumeral.swagger';
-import swaggerJsdoc from 'swagger-jsdoc';
+import userTypeSwagger from './User_Swagger/User_Type.swagger';
+
 
 // Swagger Definition
 const swaggerDefinition = {
@@ -83,6 +85,7 @@ const swaggerDefinition = {
             }
         },
         ...palindromeSwagger.paths,
+        ...userTypeSwagger.paths,
         ...romanNumeralSwagger.paths,
     },
     tags: [
@@ -93,6 +96,7 @@ const swaggerDefinition = {
         },
         //APIs List
         ...(palindromeSwagger.tags || []),
+        ...(userTypeSwagger.tags || []),
         ...(romanNumeralSwagger.tags || []),
     ],
     apis: [

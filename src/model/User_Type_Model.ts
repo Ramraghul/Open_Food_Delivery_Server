@@ -3,7 +3,6 @@ import mongoose, { Schema, Document, model } from 'mongoose';
 // Define the User Type interface
 export interface IUserType extends Document {
     name: string;
-    description?: string;
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -17,10 +16,6 @@ const UserTypeSchema = new Schema<IUserType>(
             unique: true,
             trim: true,
         },
-        description: {
-            type: String,
-            default: '',
-        },
     },
     {
         timestamps: true,
@@ -29,6 +24,6 @@ const UserTypeSchema = new Schema<IUserType>(
 );
 
 // Create the Mongoose model
-const UserTypeModel = model<IUserType>('UserType', UserTypeSchema);
+const UserTypeModel = model<IUserType>('User_Type', UserTypeSchema);
 
 export default UserTypeModel;
