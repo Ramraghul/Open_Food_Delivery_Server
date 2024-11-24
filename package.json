@@ -4,7 +4,7 @@
   "description": "This Is The Open Server For Online Food Delivery",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Ramraghul/Open_Food_Delivery_Server"
   },
   "author": "Raghul",
   "license": "MIT",
