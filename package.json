@@ -10,8 +10,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "nodemon Server.ts",
-    "local": "nodemon Server.ts",
+    "start": "nodemon ./src/Server.ts",
+    "local": "nodemon ./src/Server.ts",
     "build": "tsc",
     "test": "jest",
     "prepush": "npm run test",

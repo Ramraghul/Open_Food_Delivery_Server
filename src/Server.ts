@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'morgan';
 import chalk from 'chalk';
-import Route from './src/Routes/master.route';
+import Route from './Routes/master.route';
 import swaggerUi from 'swagger-ui-express';
-import masterSwagger from './src/Doc/Swagger/master.swagger';
+import masterSwagger from './Doc/Swagger/master.swagger';
 import cors from 'cors';
 import compression from 'compression';
 import helmet from 'helmet';
@@ -98,6 +98,7 @@ app.get("/test", (req: Request, res: Response) => {
 // Mount the router
 app.use('/api/v1', Route);
 
+//Swagger Css Direct Access
 app.use('/swagger-ui-assets', express.static(path.join(__dirname, 'node_modules/swagger-ui-dist')));
 
 // Swagger Doc
